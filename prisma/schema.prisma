@@ -1,0 +1,417 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin_menu {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  parent_id  Int       @default(0)
+  order      Int       @default(0)
+  title      String    @db.VarChar(50)
+  icon       String    @db.VarChar(50)
+  uri        String?   @db.VarChar(255)
+  permission String?   @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model admin_operation_log {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  user_id    Int
+  path       String    @db.VarChar(255)
+  method     String    @db.VarChar(10)
+  ip         String    @db.VarChar(255)
+  input      String    @db.Text
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([user_id], map: "admin_operation_log_user_id_index")
+}
+
+model admin_permissions {
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  name        String    @unique(map: "admin_permissions_name_unique") @db.VarChar(50)
+  slug        String    @unique(map: "admin_permissions_slug_unique") @db.VarChar(50)
+  http_method String?   @db.VarChar(255)
+  http_path   String?   @db.Text
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model admin_role_menu {
+  role_id    Int
+  menu_id    Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([role_id, menu_id], map: "admin_role_menu_role_id_menu_id_index")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model admin_role_permissions {
+  role_id       Int
+  permission_id Int
+  created_at    DateTime? @db.Timestamp(0)
+  updated_at    DateTime? @db.Timestamp(0)
+
+  @@index([role_id, permission_id], map: "admin_role_permissions_role_id_permission_id_index")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model admin_role_users {
+  role_id    Int
+  user_id    Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([role_id, user_id], map: "admin_role_users_role_id_user_id_index")
+  @@ignore
+}
+
+model admin_roles {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  name       String    @unique(map: "admin_roles_name_unique") @db.VarChar(50)
+  slug       String    @unique(map: "admin_roles_slug_unique") @db.VarChar(50)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model admin_user_permissions {
+  user_id       Int
+  permission_id Int
+  created_at    DateTime? @db.Timestamp(0)
+  updated_at    DateTime? @db.Timestamp(0)
+
+  @@index([user_id, permission_id], map: "admin_user_permissions_user_id_permission_id_index")
+  @@ignore
+}
+
+model admin_users {
+  id             Int       @id @default(autoincrement()) @db.UnsignedInt
+  username       String    @unique(map: "admin_users_username_unique") @db.VarChar(190)
+  password       String    @db.VarChar(60)
+  name           String    @db.VarChar(255)
+  avatar         String?   @db.VarChar(255)
+  remember_token String?   @db.VarChar(100)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+}
+
+/// This model has been renamed to 'Renamedclass' during introspection, because the original name 'class' is reserved.
+model Renamedclass {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  vi_name        String    @db.VarChar(500)
+  en_name        String    @db.VarChar(500)
+  vi_description String?   @db.Text
+  en_description String?   @db.Text
+  vi_content     String?   @db.Text
+  en_content     String?   @db.Text
+  image          String?   @db.VarChar(256)
+  order          Int?
+  status         Int
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  created_by     String?   @db.VarChar(10)
+  updated_by     String?   @db.VarChar(10)
+
+  @@map("class")
+}
+
+model component {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  section_id BigInt    @db.UnsignedBigInt
+  vi_title   String    @db.VarChar(500)
+  en_title   String    @db.VarChar(500)
+  vi_content String?   @db.Text
+  en_content String?   @db.Text
+  image      String?   @db.VarChar(256)
+  image_2    String?   @db.VarChar(1000)
+  image_3    String?   @db.VarChar(1000)
+  image_4    String?   @db.VarChar(1000)
+  image_5    String?   @db.VarChar(1000)
+  image_6    String?   @db.VarChar(1000)
+  image_7    String?   @db.VarChar(1000)
+  order      Int?
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+  section    section   @relation(fields: [section_id], references: [id], onDelete: Cascade, map: "fk_component_section")
+
+  @@index([section_id], map: "fk_component_section")
+}
+
+model core_system_config {
+  id             Int       @id @default(autoincrement()) @db.UnsignedInt
+  group          String    @db.VarChar(256)
+  type           String    @db.VarChar(128)
+  value          String    @db.VarChar(500)
+  image          String?   @db.VarChar(2000)
+  description_vi String    @db.Text
+  description_en String?   @db.Text
+  order          Int?
+  block_delete   Int?      @db.TinyInt
+  status         Int?      @db.TinyInt
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  created_by     String?   @db.VarChar(10)
+  updated_by     String?   @db.VarChar(10)
+}
+
+model document {
+  id               BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  document_type_id BigInt        @db.UnsignedBigInt
+  vi_title         String        @db.VarChar(2000)
+  en_title         String        @db.VarChar(2000)
+  vi_description   String?       @db.Text
+  en_description   String?       @db.VarChar(500)
+  vi_content       String        @db.Text
+  en_content       String        @db.Text
+  link_file        String?       @db.VarChar(1000)
+  downloaded       Int           @default(0)
+  image            String?       @db.VarChar(256)
+  order            Int?
+  status           Int
+  created_at       DateTime?     @db.Timestamp(0)
+  updated_at       DateTime?     @db.Timestamp(0)
+  created_by       String?       @db.VarChar(10)
+  updated_by       String?       @db.VarChar(10)
+  document_link    String?       @db.VarChar(1000)
+  document_type    document_type @relation(fields: [document_type_id], references: [id], onDelete: Cascade, map: "fk_document_document_type")
+
+  @@index([document_type_id], map: "fk_document_document_type")
+}
+
+model document_type {
+  id             BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  vi_name        String     @db.VarChar(500)
+  en_name        String     @db.VarChar(500)
+  vi_description String?    @db.VarChar(500)
+  en_description String?    @db.VarChar(500)
+  order          Int?
+  status         Int
+  created_at     DateTime?  @db.Timestamp(0)
+  updated_at     DateTime?  @db.Timestamp(0)
+  created_by     String?    @db.VarChar(10)
+  updated_by     String?    @db.VarChar(10)
+  document       document[]
+}
+
+model failed_jobs {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.LongText
+  exception  String   @db.LongText
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model feedback {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String?   @db.VarChar(500)
+  address    String?   @db.VarChar(500)
+  avatar     String?   @db.VarChar(256)
+  vi_content String?   @db.VarChar(500)
+  en_content String?   @db.VarChar(500)
+  image      String?   @db.VarChar(256)
+  image_2    String?   @db.VarChar(256)
+  image_3    String?   @db.VarChar(256)
+  image_4    String?   @db.VarChar(256)
+  image_5    String?   @db.VarChar(256)
+  image_6    String?   @db.VarChar(256)
+  order      Int?
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+}
+
+model lecture {
+  id              BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  lecture_type_id BigInt       @db.UnsignedBigInt
+  vi_title        String       @db.MediumText
+  en_title        String       @db.VarChar(2000)
+  vi_description  String?      @db.Text
+  en_description  String?      @db.Text
+  vi_content      String       @db.Text
+  en_content      String       @db.Text
+  associcate_link String?      @db.VarChar(1000)
+  viewer          Int          @default(0)
+  image           String?      @db.VarChar(256)
+  order           Int?
+  status          Int
+  created_at      DateTime?    @db.Timestamp(0)
+  updated_at      DateTime?    @db.Timestamp(0)
+  created_by      String?      @db.VarChar(10)
+  updated_by      String?      @db.VarChar(10)
+  lecture_type    lecture_type @relation(fields: [lecture_type_id], references: [id], onDelete: Cascade, map: "fk_lecture_lecture_type")
+
+  @@index([lecture_type_id], map: "fk_lecture_lecture_type")
+}
+
+model lecture_type {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  vi_name        String    @db.VarChar(500)
+  en_name        String    @db.VarChar(500)
+  vi_description String?   @db.VarChar(500)
+  en_description String?   @db.VarChar(500)
+  order          Int?
+  status         Int
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  created_by     String?   @db.VarChar(10)
+  updated_by     String?   @db.VarChar(10)
+  lecture        lecture[]
+}
+
+model lecturer {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  avatar     String    @db.VarChar(256)
+  name       String    @db.VarChar(500)
+  vi_title   String    @db.VarChar(500)
+  en_title   String?   @db.VarChar(500)
+  vi_content String?   @db.Text
+  en_content String?   @db.Text
+  order      Int?
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+model news {
+  id               BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  news_category_id BigInt        @db.UnsignedBigInt
+  vi_title         String        @db.MediumText
+  en_title         String        @db.VarChar(2000)
+  vi_description   String?       @db.Text
+  en_description   String?       @db.Text
+  vi_content       String        @db.Text
+  en_content       String        @db.Text
+  slug             String        @db.VarChar(2000)
+  read_time        Int?          @default(0)
+  image            String?       @db.VarChar(256)
+  order            Int?
+  status           Int
+  created_at       DateTime?     @db.Timestamp(0)
+  updated_at       DateTime?     @db.Timestamp(0)
+  created_by       String?       @db.VarChar(10)
+  updated_by       String?       @db.VarChar(10)
+  news_category    news_category @relation(fields: [news_category_id], references: [id], onDelete: Cascade, map: "fk_news_news_category")
+
+  @@index([news_category_id], map: "fk_news_news_category")
+}
+
+model news_category {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  vi_name        String    @db.VarChar(500)
+  en_name        String    @db.VarChar(500)
+  vi_description String?   @db.VarChar(500)
+  en_description String?   @db.VarChar(500)
+  order          Int?
+  status         Int
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  created_by     String?   @db.VarChar(10)
+  updated_by     String?   @db.VarChar(10)
+  news           news[]
+}
+
+model page {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  vi_name    String    @db.VarChar(500)
+  en_name    String    @db.VarChar(500)
+  url        String    @db.VarChar(256)
+  seo        String?   @db.VarChar(256)
+  order      Int?
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+  section    section[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model password_resets {
+  email      String    @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+
+  @@index([email(length: 191)], map: "password_resets_email_index")
+  @@ignore
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt    @db.UnsignedBigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type(length: 191), tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model registration {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  full_name    String?   @db.VarChar(256)
+  phone_number String?   @db.VarChar(256)
+  email        String?   @db.VarChar(256)
+  is_learn     Int?
+  type_class   Int?
+  created_at   DateTime? @db.Timestamp(0)
+  updated_at   DateTime? @db.Timestamp(0)
+}
+
+model section {
+  id             BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  page_id        BigInt      @db.UnsignedBigInt
+  vi_name        String      @db.VarChar(500)
+  en_name        String      @db.VarChar(500)
+  vi_description String?     @db.Text
+  en_description String?     @db.Text
+  image          String?     @db.VarChar(256)
+  order          Int?
+  status         Int
+  created_at     DateTime?   @db.Timestamp(0)
+  updated_at     DateTime?   @db.Timestamp(0)
+  created_by     String?     @db.VarChar(10)
+  updated_by     String?     @db.VarChar(10)
+  component      component[]
+  page           page        @relation(fields: [page_id], references: [id], onDelete: Cascade, map: "fk_section_page")
+
+  @@index([page_id], map: "fk_section_page")
+}
+
+model users {
+  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name              String    @db.VarChar(255)
+  email             String    @unique(map: "users_email_unique") @db.VarChar(255)
+  email_verified_at DateTime? @db.Timestamp(0)
+  password          String    @db.VarChar(255)
+  remember_token    String?   @db.VarChar(100)
+  created_at        DateTime? @db.Timestamp(0)
+  updated_at        DateTime? @db.Timestamp(0)
+}
