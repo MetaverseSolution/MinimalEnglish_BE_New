@@ -13,6 +13,16 @@ export type Dependencies = {
   postsRepository: Interfaces.PostsRepository;
   pagesRepository: Interfaces.PagesRepository;
   sectionsRepository: Interfaces.SectionsRepository;
+  componentsRepository: Interfaces.ComponentsRepository;
+  classesRepository: Interfaces.ClassesRepository;
+  documentsRepository: Interfaces.DocumentsRepository;
+  documentTypesRepository: Interfaces.DocumentTypesRepository;
+  feedbacksRepository: Interfaces.FeedbacksRepository;
+  lectureTypesRepository: Interfaces.LectureTypesRepository;
+  lecturesRepository: Interfaces.LecturesRepository;
+  lecturersRepository: Interfaces.LecturersRepository;
+  newsCategoriesRepository: Interfaces.NewsCategoriesRepository;
+  newsRepository: Interfaces.NewsRepository;
 };
 
 export function makeInfrastructureDependencies(): {
@@ -33,6 +43,16 @@ export function makeInfrastructureDependencies(): {
     logger: asValue(logger),
     postsRepository: asFunction(repositories.makePostsRepository).singleton(),
     pagesRepository: asFunction(repositories.makePagesRepository).singleton(),
-    sectionsRepository: asFunction(repositories.m).singleton(),
+    sectionsRepository: asFunction(repositories.makeSectionsRepository).singleton(),
+    componentsRepository: asFunction(repositories.makeComponentsRepository).singleton(),
+    classesRepository: asFunction(repositories.makeClassesRepository).singleton(),
+    documentsRepository: asFunction(repositories.makeDocumentsRepository).singleton(),
+    documentTypesRepository: asFunction(repositories.makeDocumentTypesRepository).singleton(),
+    feedbacksRepository: asFunction(repositories.makeFeedbacksRepository).singleton(),
+    lectureTypesRepository: asFunction(repositories.makeLectureTypesRepository).singleton(),
+    lecturesRepository: asFunction(repositories.makeLecturesRepository).singleton(),
+    lecturersRepository: asFunction(repositories.makeLecturersRepository).singleton(),
+    newsCategoriesRepository: asFunction(repositories.makeNewsCategoriesRepository).singleton(),
+    newsRepository: asFunction(repositories.makeNewsRepository).singleton(),
   };
 }

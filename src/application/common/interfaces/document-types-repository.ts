@@ -1,5 +1,5 @@
-import { DocumentType } from '@domain/entities';
+import { DocumentTypeEntity } from '@domain/entities';
 
 export interface DocumentTypesRepository {
-  list(): Promise<{ data: Array<DocumentType> }>;
+  list(params: { language: string }): Promise<Array<DocumentTypeEntity>>;
 }

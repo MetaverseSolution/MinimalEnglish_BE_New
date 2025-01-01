@@ -1,39 +1,39 @@
-export class NewsCategory {
+export class NewsCategoryEntity {
   public id?: number;
-  public viName: string;
-  public enName: string;
-  public viDescription?: string;
-  public enDescription?: string;
-  public order?: number;
+  public vi_name: string;
+  public en_name: string;
+  public vi_description?: string | null;
+  public en_description?: string | null;
+  public order?: number | null;
   public status: number;
-  public createdAt?: Date;
-  public updatedAt?: Date;
-  public createdBy?: string;
-  public updatedBy?: string;
+  public created_at?: Date | null;
+  public updated_at?: Date | null;
+  public created_by?: string | null;
+  public updated_by?: string | null;
 
-  constructor(newsCategory: {
+  constructor(newsCategoryEntity: {
     id?: number;
-    viName: string;
-    enName: string;
-    viDescription?: string;
-    enDescription?: string;
+    vi_name: string;
+    en_name: string;
+    vi_description?: string;
+    en_description?: string;
     order?: number;
     status: number;
-    createdAt?: Date;
-    updatedAt?: Date;
-    createdBy?: string;
-    updatedBy?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    created_by?: string;
+    updated_by?: string;
   }) {
-    this.id = newsCategory.id;
-    this.viName = newsCategory.viName;
-    this.enName = newsCategory.enName;
-    this.viDescription = newsCategory.viDescription;
-    this.enDescription = newsCategory.enDescription;
-    this.order = newsCategory.order;
-    this.status = newsCategory.status;
-    this.createdAt = newsCategory.createdAt;
-    this.updatedAt = newsCategory.updatedAt;
-    this.createdBy = newsCategory.createdBy;
-    this.updatedBy = newsCategory.updatedBy;
+    this.id = newsCategoryEntity.id;
+    this.vi_name = newsCategoryEntity.vi_name;
+    this.en_name = newsCategoryEntity.en_name;
+    this.vi_description = newsCategoryEntity.vi_description;
+    this.en_description = newsCategoryEntity.en_description;
+    this.order = newsCategoryEntity.order;
+    this.status = newsCategoryEntity.status;
+    this.created_at = newsCategoryEntity.created_at;
+    this.updated_at = newsCategoryEntity.updated_at;
+    this.created_by = newsCategoryEntity.created_by;
+    this.updated_by = newsCategoryEntity.updated_by;
   }
 }

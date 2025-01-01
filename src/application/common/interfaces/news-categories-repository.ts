@@ -1,5 +1,5 @@
-import { NewsCategory } from '@domain/entities';
+import { NewsCategoryEntity } from '@domain/entities';
 
-export interface NewsCategorysRepository {
-  list(): Promise<{ data: Array<NewsCategory> }>;
+export interface NewsCategoriesRepository {
+  list(params: { language: string; }): Promise<Array<NewsCategoryEntity> | null>;
 }

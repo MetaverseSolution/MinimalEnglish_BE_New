@@ -1,5 +1,9 @@
-import { Feedback } from '@domain/entities';
+import { FeedbackEntity } from '@domain/entities';
 
 export interface FeedbacksRepository {
-  list(): Promise<{ data: Array<Feedback> }>;
+  list(params: {
+    language: string;
+    size?: number;
+    page?: number
+  }): Promise<{ data: Array<FeedbackEntity>, total: number } | { data: [], total: null }>;
 }

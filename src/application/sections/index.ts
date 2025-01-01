@@ -1,9 +1,11 @@
-import { makeListSectionsQuery } from './queries/list-Sections';
+import { makeSectionGetByPage } from "./queries/get-by-page";
+import { makeSectionGetByUrl } from "./queries/get-by-url";
 
 export function makeSectionsUseCases(dependencies: Dependencies) {
   return {
     queries: {
-      listSections: makeListSectionsQuery(dependencies),
+      listSectionsByPage: makeSectionGetByPage(dependencies),
+      listSectionsByPageUrl: makeSectionGetByUrl(dependencies),
     },
   };
 }

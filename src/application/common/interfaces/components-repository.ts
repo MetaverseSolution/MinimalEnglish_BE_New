@@ -1,5 +1,5 @@
-import { Component } from '@domain/entities';
+import { ComponentEntity } from '@domain/entities';
 
 export interface ComponentsRepository {
-  getBySection(parameters: { language: string, section_id: string }): Promise<Component | null>;
+  getBySection(parameters: { language: string, section_id: string }): Promise<Array<ComponentEntity> | []>;
 }

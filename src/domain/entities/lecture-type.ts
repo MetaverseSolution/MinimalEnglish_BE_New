@@ -1,39 +1,39 @@
-export class LectureType {
+export class LectureTypeEntity {
   public id?: number;
-  public viName: string;
-  public enName: string;
-  public viDescription?: string;
-  public enDescription?: string;
-  public order?: number;
+  public vi_name: string;
+  public en_name: string;
+  public vi_description?: string | null;
+  public en_description?: string | null;
+  public order?: number | null;
   public status: number;
-  public createdAt?: Date;
-  public updatedAt?: Date;
-  public createdBy?: string;
-  public updatedBy?: string;
+  public created_at?: Date | null;
+  public updated_at?: Date | null;
+  public created_by?: string | null;
+  public updated_by?: string | null;
 
-  constructor(lectureType: {
+  constructor(lectureTypeEntity: {
     id?: number;
-    viName: string;
-    enName: string;
-    viDescription?: string;
-    enDescription?: string;
+    vi_name: string;
+    en_name: string;
+    vi_description?: string;
+    en_description?: string;
     order?: number;
     status: number;
-    createdAt?: Date;
-    updatedAt?: Date;
-    createdBy?: string;
-    updatedBy?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    created_by?: string;
+    updated_by?: string;
   }) {
-    this.id = lectureType.id;
-    this.viName = lectureType.viName;
-    this.enName = lectureType.enName;
-    this.viDescription = lectureType.viDescription;
-    this.enDescription = lectureType.enDescription;
-    this.order = lectureType.order;
-    this.status = lectureType.status;
-    this.createdAt = lectureType.createdAt;
-    this.updatedAt = lectureType.updatedAt;
-    this.createdBy = lectureType.createdBy;
-    this.updatedBy = lectureType.updatedBy;
+    this.id = lectureTypeEntity.id;
+    this.vi_name = lectureTypeEntity.vi_name;
+    this.en_name = lectureTypeEntity.en_name;
+    this.vi_description = lectureTypeEntity.vi_description;
+    this.en_description = lectureTypeEntity.en_description;
+    this.order = lectureTypeEntity.order;
+    this.status = lectureTypeEntity.status;
+    this.created_at = lectureTypeEntity.created_at;
+    this.updated_at = lectureTypeEntity.updated_at;
+    this.created_by = lectureTypeEntity.created_by;
+    this.updated_by = lectureTypeEntity.updated_by;
   }
 }

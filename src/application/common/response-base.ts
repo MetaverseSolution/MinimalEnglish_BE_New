@@ -1,26 +1,30 @@
 export default class ResponseBase {
-  static formatCountResponse<T>(data: T, perPage: number, total: number) {
+  static formatPaginationResponse<T>(status_code: number, data: T, total: number, per_page: number, current_page: number, last_page: number, message: string) {
     return {
-      content: data,
-      totalElements: perPage,
-      totalPages: total,
+      status_code,
+      data,
+      total,
+      per_page,
+      current_page,
+      last_page,
+      message,
     };
   }
 
-  static formatBaseResponse<T>(statusCode: number, data: T, message: string) {
+  static formatBaseResponse<T>(status_code: number, data: T, message: string) {
     return {
-      statusCode: statusCode,
-      data: data,
-      message: message,
+      status_code,
+      data,
+      message,
     };
   }
 
-  static formatBaseResponseWithTotal<T>(statusCode: number, data: T, total: number, message: string) {
+  static formatBaseResponseWithTotal<T>(status_code: number, data: T, total: number, message: string) {
     return {
-      statusCode: statusCode,
-      data: data,
-      total: total,
-      message: message,
+      status_code,
+      data,
+      total,
+      message,
     };
   }
 }

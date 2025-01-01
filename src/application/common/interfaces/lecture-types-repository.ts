@@ -1,5 +1,5 @@
-import { LectureType } from '@domain/entities';
+import { LectureTypeEntity } from '@domain/entities';
 
 export interface LectureTypesRepository {
-  list(): Promise<{ data: Array<LectureType> }>;
+  list(params: { language: string }): Promise<Array<LectureTypeEntity>>;
 }

@@ -6,7 +6,8 @@ import { GetByPageQuery } from './get-by-page-query';
 export async function validate(query: GetByPageQuery) {
   try {
     const schema: z.ZodType<GetByPageQuery> = z.object({
-      language: z.string()
+      language: z.string(),
+      page_id: z.string()
     });
 
     await schema.parseAsync(query);

@@ -8,7 +8,7 @@ export function map(page: PageEntity, language: string): PageDTO {
     url: page.url,
     order: page.order || null,
     status: page.status,
-    created_at: page.created_at ? page.created_at.toISOString() : null, // Chuyển Date sang ISO string
+    created_at: page.created_at ? page.created_at.toISOString() : null,
     updated_at: page.updated_at ? page.updated_at.toISOString() : null,
     created_by: page.created_by || null,
     updated_by: page.updated_by || null,

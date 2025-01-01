@@ -25,13 +25,13 @@ export default async function pageRoutes(fastify: FastifyRouteInstance) {
         200: {
           type: 'object',
           properties: {
-            statusCode: { type: 'integer', example: 200 },
+            status_code: { type: 'integer', example: 200 },
             data: {
               type: 'array',
               items: {
                 type: 'object',
                 properties: {
-                  id: { type: 'string' },
+                  id: { type: 'integer' },
                   name: { type: 'string' },
                   url: { type: 'string' },
                   order: { type: 'integer' },
