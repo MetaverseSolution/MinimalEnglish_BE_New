@@ -1,27 +1,23 @@
 import { FastifyRequest } from 'fastify';
 
-import { makeComponentsUseCases } from '@application/components';
+import { makeNewsCategoriesUseCases } from '@application/news-categories';
+import { ListNewsCategoriesQuery } from '@application/news-categories/queries/list-news-categories';
+
 import ResponseBase from '@application/common/response-base';
 
-interface ListComponentsByPageQuery {
-  language: string
-  section_id: string
-}
-
 export default async function newsCategoryRoutes(fastify: FastifyRouteInstance) {
-  const components = makeComponentsUseCases(fastify.diContainer.cradle);
+  const newsCategories = makeNewsCategoriesUseCases(fastify.diContainer.cradle);
 
   fastify.route({
     method: 'POST',
-    url: '/api/component/get-by-section',
+    url: '/api/news-category/all',
     schema: {
       body: {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
-          section_id: { type: 'string', description: 'ID of pages database' }
         },
-        required: ['language', 'section_id'],
+        required: ['language'],
       },
       response: {
         200: {
@@ -35,44 +31,30 @@ export default async function newsCategoryRoutes(fastify: FastifyRouteInstance) 
                 properties: {
                   id: { type: 'integer' },
                   title: { type: 'string' },
-                  content: { type: 'string' },
-                  image: { type: 'string' },
-                  image_2: { type: 'string' },
-                  image_3: { type: 'string' },
-                  image_4: { type: 'string' },
-                  image_5: { type: 'string' },
-                  image_6: { type: 'string' },
-                  image_7: { type: 'string' },
                   order: { type: 'integer' },
-                  status: { type: 'integer' },
-                  created_at: { type: 'string', format: 'date-time' },
-                  updated_at: { type: 'string', format: 'date-time' },
-                  created_by: { type: 'string' },
-                  updated_by: { type: 'string' },
                 },
               },
             },
-            message: { type: 'string', example: 'Components fetched successfully' },
+            message: { type: 'string', example: 'Class fetched successfully' },
           },
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['new-categories'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListComponentsByPageQuery }>,
+      req: FastifyRequest<{ Body: ListNewsCategoriesQuery }>,
       res
     ) {
       try {
-        const componentsList = await components.queries.listComponentsBySection({
+        const data = await newsCategories.queries.list({
           language: req.body.language,
-          section_id: req.body.section_id
         });
 
         const response = ResponseBase.formatBaseResponse(
           200,
-          componentsList,
-          'Components fetched successfully',
+          data,
+          'News categories fetched successfully',
         );
 
         res.status(200).send(response);
@@ -82,7 +64,7 @@ export default async function newsCategoryRoutes(fastify: FastifyRouteInstance) 
         const errorResponse = ResponseBase.formatBaseResponse(
           400,
           null,
-          'Failed to fetch components',
+          'Failed to fetch new categories',
         );
 
         res.status(400).send(errorResponse);

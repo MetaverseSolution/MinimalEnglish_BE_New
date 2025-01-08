@@ -10,7 +10,6 @@ export type Dependencies = {
   config: Interfaces.ApplicationConfig;
   db: PrismaClient;
   logger: Interfaces.Logger;
-  postsRepository: Interfaces.PostsRepository;
   pagesRepository: Interfaces.PagesRepository;
   sectionsRepository: Interfaces.SectionsRepository;
   componentsRepository: Interfaces.ComponentsRepository;
@@ -41,7 +40,6 @@ export function makeInfrastructureDependencies(): {
     config: asValue(config),
     db: asValue(db),
     logger: asValue(logger),
-    postsRepository: asFunction(repositories.makePostsRepository).singleton(),
     pagesRepository: asFunction(repositories.makePagesRepository).singleton(),
     sectionsRepository: asFunction(repositories.makeSectionsRepository).singleton(),
     componentsRepository: asFunction(repositories.makeComponentsRepository).singleton(),

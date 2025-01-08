@@ -1,27 +1,28 @@
 import { FastifyRequest } from 'fastify';
 
-import { makeComponentsUseCases } from '@application/components';
+import { makeNewsUseCases } from '@application/news';
 import ResponseBase from '@application/common/response-base';
-
-interface ListComponentsByPageQuery {
-  language: string
-  section_id: string
-}
+import { GetRelatedQuery } from '@application/news/queries/get-related';
+import { GetByCategoryQuery } from '@application/news/queries/get-by-category';
+import { GetBySlugQuery } from '@application/news/queries/get-by-slug';
 
 export default async function newsRoutes(fastify: FastifyRouteInstance) {
-  const components = makeComponentsUseCases(fastify.diContainer.cradle);
+  const news = makeNewsUseCases(fastify.diContainer.cradle);
 
   fastify.route({
     method: 'POST',
-    url: '/api/component/get-by-section',
+    url: '/api/news/get-related',
     schema: {
       body: {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
-          section_id: { type: 'string', description: 'ID of pages database' }
+          id: { type: 'number', description: 'Id of records (e.g., 10.)' },
+          news_category_id: { type: 'number', description: 'News category id of records (e.g., 10.)' },
+          size: { type: 'number', description: 'Size number of records (e.g., 10.)' },
+          page: { type: 'number', description: 'Page number of database (e.g., 1.)' }
         },
-        required: ['language', 'section_id'],
+        required: ['language', 'news_category_id', 'id', 'size', 'page'],
       },
       response: {
         200: {
@@ -36,13 +37,8 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                   id: { type: 'integer' },
                   title: { type: 'string' },
                   content: { type: 'string' },
+                  description: { type: 'string' },
                   image: { type: 'string' },
-                  image_2: { type: 'string' },
-                  image_3: { type: 'string' },
-                  image_4: { type: 'string' },
-                  image_5: { type: 'string' },
-                  image_6: { type: 'string' },
-                  image_7: { type: 'string' },
                   order: { type: 'integer' },
                   status: { type: 'integer' },
                   created_at: { type: 'string', format: 'date-time' },
@@ -52,27 +48,203 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                 },
               },
             },
-            message: { type: 'string', example: 'Components fetched successfully' },
+            total: { type: 'integer', },
+            per_page: { type: 'integer', },
+            current_page: { type: 'integer', },
+            last_page: { type: 'integer', },
+            message: { type: 'string', example: 'Classes fetched successfully' },
           },
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['classes'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListComponentsByPageQuery }>,
+      req: FastifyRequest<{ Body: GetRelatedQuery }>,
       res
     ) {
       try {
-        const componentsList = await components.queries.listComponentsBySection({
+        const { data, total, per_page, current_page, last_page } = await news.queries.getRelated({
           language: req.body.language,
-          section_id: req.body.section_id
+          news_category_id: req.body.news_category_id,
+          id: req.body.id,
+          size: req.body.size,
+          page: req.body.page,
+        });
+
+        const response = ResponseBase.formatPaginationResponse(
+          200,
+          data,
+          total ?? 0,
+          per_page ?? 0,
+          current_page ?? 0,
+          last_page ?? 0,
+          'News related fetched successfully',
+        );
+
+        res.status(200).send(response);
+      } catch (error) {
+        fastify.log.error(error);
+
+        const errorResponse = ResponseBase.formatPaginationResponse(
+          400,
+          null,
+          0,
+          0,
+          0,
+          0,
+          'Failed to fetch news related',
+        );
+
+        res.status(400).send(errorResponse);
+      }
+    },
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/api/news/get-by-category',
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+          news_category_id: { type: 'number', description: 'News category id of records (e.g., 10.)' },
+          size: { type: 'number', description: 'Size number of records (e.g., 10.)' },
+          page: { type: 'number', description: 'Page number of database (e.g., 1.)' }
+        },
+        required: ['language', 'news_category_id', 'size', 'page'],
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 200 },
+            data: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  id: { type: 'integer' },
+                  title: { type: 'string' },
+                  content: { type: 'string' },
+                  description: { type: 'string' },
+                  image: { type: 'string' },
+                  order: { type: 'integer' },
+                  status: { type: 'integer' },
+                  created_at: { type: 'string', format: 'date-time' },
+                  updated_at: { type: 'string', format: 'date-time' },
+                  created_by: { type: 'string' },
+                  updated_by: { type: 'string' },
+                },
+              },
+            },
+            total: { type: 'integer', },
+            per_page: { type: 'integer', },
+            current_page: { type: 'integer', },
+            last_page: { type: 'integer', },
+            message: { type: 'string', example: 'Classes fetched successfully' },
+          },
+        },
+        400: { $ref: 'ExceptionResponse#' },
+      },
+      tags: ['classes'],
+    },
+    async handler(
+      req: FastifyRequest<{ Body: GetByCategoryQuery }>,
+      res
+    ) {
+      try {
+        const { data, total, per_page, current_page, last_page } = await news.queries.getByCategory({
+          language: req.body.language,
+          news_category_id: req.body.news_category_id,
+          size: req.body.size,
+          page: req.body.page,
+        });
+
+        const response = ResponseBase.formatPaginationResponse(
+          200,
+          data,
+          total ?? 0,
+          per_page ?? 0,
+          current_page ?? 0,
+          last_page ?? 0,
+          'News by category fetched successfully',
+        );
+
+        res.status(200).send(response);
+      } catch (error) {
+        fastify.log.error(error);
+
+        const errorResponse = ResponseBase.formatPaginationResponse(
+          400,
+          null,
+          0,
+          0,
+          0,
+          0,
+          'Failed to fetch news by category',
+        );
+
+        res.status(400).send(errorResponse);
+      }
+    },
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/api/class/get-by-slug',
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+          slug: { type: 'string', description: 'Slug of news (e.g., abc-xyz)' },
+        },
+        required: ['language', 'slug'],
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 200 },
+            data: {
+              type: 'object',
+              properties: {
+                id: { type: 'integer' },
+                title: { type: 'string' },
+                content: { type: 'string' },
+                description: { type: 'string' },
+                image: { type: 'string' },
+                order: { type: 'integer' },
+                status: { type: 'integer' },
+                created_at: { type: 'string', format: 'date-time' },
+                updated_at: { type: 'string', format: 'date-time' },
+                created_by: { type: 'string' },
+                updated_by: { type: 'string' },
+              },
+            },
+            message: { type: 'string', example: 'Class fetched successfully' },
+          },
+        },
+        400: { $ref: 'ExceptionResponse#' },
+      },
+      tags: ['classes'],
+    },
+    async handler(
+      req: FastifyRequest<{ Body: GetBySlugQuery }>,
+      res
+    ) {
+      try {
+        const data = await news.queries.getBySlug({
+          language: req.body.language,
+          slug: req.body.slug
         });
 
         const response = ResponseBase.formatBaseResponse(
           200,
-          componentsList,
-          'Components fetched successfully',
+          data,
+          'News get by slug successfully',
         );
 
         res.status(200).send(response);
@@ -82,7 +254,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
         const errorResponse = ResponseBase.formatBaseResponse(
           400,
           null,
-          'Failed to fetch components',
+          'Failed to fetch news get by slug',
         );
 
         res.status(400).send(errorResponse);
