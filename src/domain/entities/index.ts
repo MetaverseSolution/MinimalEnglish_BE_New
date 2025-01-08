@@ -1,4 +1,3 @@
-export * from './post';
 export * from './page';
 export * from './section';
 export * from './component';
