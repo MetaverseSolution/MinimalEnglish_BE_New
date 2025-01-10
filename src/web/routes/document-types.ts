@@ -45,7 +45,7 @@ export default async function documentTypeRoutes(fastify: FastifyRouteInstance) 
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['document-types'],
     },
     async handler(
       req: FastifyRequest<{ Body: ListDocumentTypesQuery }>,

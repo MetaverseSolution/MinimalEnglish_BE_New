@@ -53,7 +53,7 @@ export default async function componentRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['components'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetBySectionQuery }>,

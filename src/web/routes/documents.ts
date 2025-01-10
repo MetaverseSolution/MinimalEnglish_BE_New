@@ -16,9 +16,9 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
-          section_id: { type: 'string', description: 'ID of pages database' }
+          document_type_id: { type: 'string', description: 'ID of pages database' }
         },
-        required: ['language', 'section_id'],
+        required: ['language', 'document_type_id'],
       },
       response: {
         200: {
@@ -52,7 +52,7 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['documents'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetByDocumentTypeQuery }>,
@@ -132,7 +132,7 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['sections'],
+      tags: ['documents'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetByIdQuery }>,

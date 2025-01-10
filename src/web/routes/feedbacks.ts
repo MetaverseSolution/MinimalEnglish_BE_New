@@ -59,7 +59,7 @@ export default async function feedbackRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['classes'],
+      tags: ['feedbacks'],
     },
     async handler(
       req: FastifyRequest<{ Body: ListFeedbacksQuery }>,

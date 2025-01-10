@@ -60,7 +60,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['classes'],
+      tags: ['news'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetRelatedQuery }>,
@@ -154,7 +154,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['classes'],
+      tags: ['news'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetByCategoryQuery }>,
@@ -238,7 +238,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['classes'],
+      tags: ['news'],
     },
     async handler(
       req: FastifyRequest<{ Body: GetBySlugQuery }>,

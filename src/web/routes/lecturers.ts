@@ -53,7 +53,7 @@ export default async function lecturerRoutes(fastify: FastifyRouteInstance) {
         },
         400: { $ref: 'ExceptionResponse#' },
       },
-      tags: ['classes'],
+      tags: ['lecturers'],
     },
     async handler(
       req: FastifyRequest<{ Body: ListLecturersQuery }>,
