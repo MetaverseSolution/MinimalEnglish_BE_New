@@ -1,10 +1,10 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeNewsUseCases } from '@application/news';
-import ResponseBase from '@application/common/response-base';
 import { GetRelatedQuery } from '@application/news/queries/get-related';
 import { GetByCategoryQuery } from '@application/news/queries/get-by-category';
 import { GetBySlugQuery } from '@application/news/queries/get-by-slug';
+import ResponseBase from '@application/common/response-base';
 
 export default async function newsRoutes(fastify: FastifyRouteInstance) {
   const news = makeNewsUseCases(fastify.diContainer.cradle);
@@ -35,6 +35,9 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
+                  news_category_id: { type: 'integer' },
+                  slug: { type: 'string' },
+                  read_time: { type: 'integer' },
                   title: { type: 'string' },
                   content: { type: 'string' },
                   description: { type: 'string' },
@@ -126,6 +129,9 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
+                  news_category_id: { type: 'integer' },
+                  slug: { type: 'string' },
+                  read_time: { type: 'integer' },
                   title: { type: 'string' },
                   content: { type: 'string' },
                   description: { type: 'string' },
@@ -212,6 +218,9 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
               type: 'object',
               properties: {
                 id: { type: 'integer' },
+                news_category_id: { type: 'integer' },
+                slug: { type: 'string' },
+                read_time: { type: 'integer' },
                 title: { type: 'string' },
                 content: { type: 'string' },
                 description: { type: 'string' },

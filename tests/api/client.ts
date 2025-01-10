@@ -1,6 +1,5 @@
 import { Dependencies } from '@infrastructure/di';
 import app from '@web/app';
-import { randomUUID } from 'crypto';
 import Fastify from 'fastify';
 import supertest from 'supertest';
 

@@ -1,22 +1,11 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeClassessUseCases } from '@application/classes';
+import { ListHightlightClassesQuery } from '@application/classes/queries/list-highlight-classes';
+import { GetClassByIdQuery } from '@application/classes/queries/get-class-by-id';
+import { ListShortClassesQuery } from '@application/classes/queries/list-short-classes';
+
 import ResponseBase from '@application/common/response-base';
-
-interface ListHightlightClassesQuery {
-  language: string
-  size?: number
-  page?: number
-}
-
-interface ListShortClassesQuery {
-  language: string
-}
-
-interface GetClassByIdQuery {
-  language: string
-  id: number
-}
 
 export default async function classRoutes(fastify: FastifyRouteInstance) {
   const classes = makeClassessUseCases(fastify.diContainer.cradle);
@@ -45,7 +34,7 @@ export default async function classRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
-                  title: { type: 'string' },
+                  name: { type: 'string' },
                   content: { type: 'string' },
                   description: { type: 'string' },
                   image: { type: 'string' },
@@ -130,7 +119,7 @@ export default async function classRoutes(fastify: FastifyRouteInstance) {
               type: 'object',
               properties: {
                 id: { type: 'integer' },
-                title: { type: 'string' },
+                name: { type: 'string' },
                 content: { type: 'string' },
                 description: { type: 'string' },
                 image: { type: 'string' },

@@ -1,11 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makePagesUseCases } from '@application/pages';
+import { ListPagesQuery } from '@application/pages/queries/list-pages';
 import ResponseBase from '@application/common/response-base';
-
-interface ListPagesQuerystring {
-  language: string
-}
 
 export default async function pageRoutes(fastify: FastifyRouteInstance) {
   const pages = makePagesUseCases(fastify.diContainer.cradle);
@@ -51,7 +48,7 @@ export default async function pageRoutes(fastify: FastifyRouteInstance) {
       tags: ['pages'],
     },
     async handler(
-      req: FastifyRequest<{ Querystring: ListPagesQuerystring }>,
+      req: FastifyRequest<{ Querystring: ListPagesQuery }>,
       res
     ) {
       try {

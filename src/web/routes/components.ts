@@ -1,12 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeComponentsUseCases } from '@application/components';
+import { GetBySectionQuery } from '@application/components/queries/get-by-section';
 import ResponseBase from '@application/common/response-base';
-
-interface ListComponentsByPageQuery {
-  language: string
-  section_id: string
-}
 
 export default async function componentRoutes(fastify: FastifyRouteInstance) {
   const components = makeComponentsUseCases(fastify.diContainer.cradle);
@@ -60,7 +56,7 @@ export default async function componentRoutes(fastify: FastifyRouteInstance) {
       tags: ['sections'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListComponentsByPageQuery }>,
+      req: FastifyRequest<{ Body: GetBySectionQuery }>,
       res
     ) {
       try {

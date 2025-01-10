@@ -1,11 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeDocumentTypesUseCases } from '@application/document-types';
+import { ListDocumentTypesQuery } from '@application/document-types/queries/list-document-types';
 import ResponseBase from '@application/common/response-base';
-
-interface ListDocumentTypesQuery {
-  language: string
-}
 
 export default async function documentTypeRoutes(fastify: FastifyRouteInstance) {
   const documentTypes = makeDocumentTypesUseCases(fastify.diContainer.cradle);

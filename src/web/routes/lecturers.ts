@@ -1,13 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeLecturersUseCases } from '@application/lecturers';
+import { ListLecturersQuery } from '@application/lecturers/queries/list-lecturers';
 import ResponseBase from '@application/common/response-base';
-
-interface ListLecturersByPageQuery {
-  language: string
-  size?: number
-  page?: number
-}
 
 export default async function lecturerRoutes(fastify: FastifyRouteInstance) {
   const lecturers = makeLecturersUseCases(fastify.diContainer.cradle);
@@ -36,10 +31,10 @@ export default async function lecturerRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
+                  name: { type: 'string' },
+                  avatar: { type: 'string' },
                   title: { type: 'string' },
                   content: { type: 'string' },
-                  description: { type: 'string' },
-                  image: { type: 'string' },
                   order: { type: 'integer' },
                   status: { type: 'integer' },
                   created_at: { type: 'string', format: 'date-time' },
@@ -61,7 +56,7 @@ export default async function lecturerRoutes(fastify: FastifyRouteInstance) {
       tags: ['classes'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListLecturersByPageQuery }>,
+      req: FastifyRequest<{ Body: ListLecturersQuery }>,
       res
     ) {
       try {

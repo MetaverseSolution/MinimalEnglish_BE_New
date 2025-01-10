@@ -1,11 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeLectureTypesUseCases } from '@application/lecture-types';
+import { ListLectureTypesQuery } from '@application/lecture-types/queries/list-lecture-types';
 import ResponseBase from '@application/common/response-base';
-
-interface ListLectureTypesQuery {
-  language: string
-}
 
 export default async function lectureTypeRoutes(fastify: FastifyRouteInstance) {
   const lectureTypes = makeLectureTypesUseCases(fastify.diContainer.cradle);

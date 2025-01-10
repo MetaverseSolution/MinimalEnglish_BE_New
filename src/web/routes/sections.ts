@@ -1,17 +1,9 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeSectionsUseCases } from '@application/sections';
+import { GetByPageQuery } from '@application/sections/queries/get-by-page';
+import { GetByUrlQuery } from '@application/sections/queries/get-by-url';
 import ResponseBase from '@application/common/response-base';
-
-interface ListSectionsByPageQuery {
-  language: string
-  page_id: string
-}
-
-interface ListSectionsByPageUrlQuery {
-  language: string
-  url: string
-}
 
 export default async function sectionRoutes(fastify: FastifyRouteInstance) {
   const sections = makeSectionsUseCases(fastify.diContainer.cradle);
@@ -59,7 +51,7 @@ export default async function sectionRoutes(fastify: FastifyRouteInstance) {
       tags: ['sections'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListSectionsByPageQuery }>,
+      req: FastifyRequest<{ Body: GetByPageQuery }>,
       res
     ) {
       try {
@@ -132,7 +124,7 @@ export default async function sectionRoutes(fastify: FastifyRouteInstance) {
       tags: ['sections'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListSectionsByPageUrlQuery }>,
+      req: FastifyRequest<{ Body: GetByUrlQuery }>,
       res
     ) {
       try {

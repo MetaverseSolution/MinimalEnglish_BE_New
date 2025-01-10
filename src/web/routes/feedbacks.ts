@@ -1,12 +1,8 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeFeedbacksUseCases } from '@application/feedbacks';
+import { ListFeedbacksQuery } from '@application/feedbacks/queries/list-feedbacks';
 import ResponseBase from '@application/common/response-base';
-interface ListFeedbacksByPageQuery {
-  language: string
-  size?: number
-  page?: number
-}
 
 export default async function feedbackRoutes(fastify: FastifyRouteInstance) {
   const feedbacks = makeFeedbacksUseCases(fastify.diContainer.cradle);
@@ -35,10 +31,16 @@ export default async function feedbackRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
-                  title: { type: 'string' },
+                  name: { type: 'string' },
+                  address: { type: 'string' },
+                  avatar: { type: 'string' },
                   content: { type: 'string' },
-                  description: { type: 'string' },
                   image: { type: 'string' },
+                  image_2: { type: 'string' },
+                  image_3: { type: 'string' },
+                  image_4: { type: 'string' },
+                  image_5: { type: 'string' },
+                  image_6: { type: 'string' },
                   order: { type: 'integer' },
                   status: { type: 'integer' },
                   created_at: { type: 'string', format: 'date-time' },
@@ -60,7 +62,7 @@ export default async function feedbackRoutes(fastify: FastifyRouteInstance) {
       tags: ['classes'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListFeedbacksByPageQuery }>,
+      req: FastifyRequest<{ Body: ListFeedbacksQuery }>,
       res
     ) {
       try {

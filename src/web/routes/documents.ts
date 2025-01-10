@@ -1,14 +1,9 @@
 import { FastifyRequest } from 'fastify';
 
+import { GetByIdQuery } from '@application/documents/queries/get-by-id';
+import { GetByDocumentTypeQuery } from '@application/documents/queries/get-by-document-type';
 import { makeDocumentsUseCases } from '@application/documents';
 import ResponseBase from '@application/common/response-base';
-
-interface ListDocumentsQuery {
-  language: string;
-  document_type_id: number;
-  size?: number;
-  page?: number;
-}
 
 export default async function documentRoutes(fastify: FastifyRouteInstance) {
   const documents = makeDocumentsUseCases(fastify.diContainer.cradle);
@@ -36,15 +31,13 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
+                  document_type_id: { type: 'integer' },
                   title: { type: 'string' },
+                  description: { type: 'string' },
                   content: { type: 'string' },
                   image: { type: 'string' },
-                  image_2: { type: 'string' },
-                  image_3: { type: 'string' },
-                  image_4: { type: 'string' },
-                  image_5: { type: 'string' },
-                  image_6: { type: 'string' },
-                  image_7: { type: 'string' },
+                  link_file: { type: 'string' },
+                  downloaded: { type: 'integer' },
                   order: { type: 'integer' },
                   status: { type: 'integer' },
                   created_at: { type: 'string', format: 'date-time' },
@@ -62,7 +55,7 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
       tags: ['sections'],
     },
     async handler(
-      req: FastifyRequest<{ Body: ListDocumentsQuery }>,
+      req: FastifyRequest<{ Body: GetByDocumentTypeQuery }>,
       res
     ) {
       try {
@@ -91,6 +84,80 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
           400,
           null,
           'Failed to fetch document types',
+        );
+
+        res.status(400).send(errorResponse);
+      }
+    },
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/api/document/get-by-id',
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+          id: { type: 'string', description: 'ID of records' }
+        },
+        required: ['language', 'id'],
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 200 },
+            data: {
+              type: 'object',
+              properties: {
+                id: { type: 'integer' },
+                document_type_id: { type: 'integer' },
+                title: { type: 'string' },
+                description: { type: 'string' },
+                content: { type: 'string' },
+                image: { type: 'string' },
+                link_file: { type: 'string' },
+                downloaded: { type: 'integer' },
+                order: { type: 'integer' },
+                status: { type: 'integer' },
+                created_at: { type: 'string', format: 'date-time' },
+                updated_at: { type: 'string', format: 'date-time' },
+                created_by: { type: 'string' },
+                updated_by: { type: 'string' },
+              },
+            },
+            message: { type: 'string', example: 'Components fetched successfully' },
+          },
+        },
+        400: { $ref: 'ExceptionResponse#' },
+      },
+      tags: ['sections'],
+    },
+    async handler(
+      req: FastifyRequest<{ Body: GetByIdQuery }>,
+      res
+    ) {
+      try {
+        const data = await documents.queries.getById({
+          language: req.body.language,
+          id: req.body.id,
+        });
+
+        const response = ResponseBase.formatBaseResponse(
+          200,
+          data,
+          'Document fetched successfully',
+        );
+
+        res.status(200).send(response);
+      } catch (error) {
+        fastify.log.error(error);
+
+        const errorResponse = ResponseBase.formatBaseResponse(
+          400,
+          null,
+          'Failed to fetch document',
         );
 
         res.status(400).send(errorResponse);
