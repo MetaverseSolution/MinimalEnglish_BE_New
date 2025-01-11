@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import cors from '@fastify/cors';
 import Fastify from 'fastify';
 
 import app from './app';
@@ -10,6 +11,12 @@ async function start() {
     logger: {
       level: process.env.LOG_LEVEL,
     },
+  });
+
+  await fastify.register(cors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   await app(fastify);
