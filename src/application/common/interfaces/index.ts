@@ -12,3 +12,4 @@ export * from './lecture-types-repository';
 export * from './feedbacks-repository';
 export * from './news-categories-repository';
 export * from './news-repository';
+export * from './core-system-configs-repository';

@@ -199,7 +199,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
 
   fastify.route({
     method: 'POST',
-    url: '/api/class/get-by-slug',
+    url: '/api/news/get-by-slug',
     schema: {
       body: {
         type: 'object',

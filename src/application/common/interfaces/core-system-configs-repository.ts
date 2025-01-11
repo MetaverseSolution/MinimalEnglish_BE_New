@@ -1,6 +1,6 @@
-import { ConfigSystem } from '@domain/entities';
+import { CoreSystemConfigEntity } from '@domain/entities';
 
-export interface ConfigSystemsRepository {
-  website(): Promise<{ data: Array<ConfigSystem> }>;
-  registration(): Promise<{ data: Array<ConfigSystem> }>;
+export interface CoreSystemConfigsRepository {
+  website(): Promise<CoreSystemConfigEntity[] | []>;
+  registration(): Promise<CoreSystemConfigEntity[] | []>;
 }

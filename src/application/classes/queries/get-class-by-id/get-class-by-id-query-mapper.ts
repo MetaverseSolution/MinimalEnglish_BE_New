@@ -4,7 +4,7 @@ import { ClassEntity } from "@domain/entities";
 export function map(renamedClass: ClassEntity, language: string): ClassDTO {
   return {
     id: renamedClass.id?.toString() || '',
-    title: language === 'vi' ? renamedClass.vi_name : renamedClass.en_name,
+    name: language === 'vi' ? renamedClass.vi_name : renamedClass.en_name,
     description: language === 'vi' ? renamedClass.vi_description || '' : renamedClass.en_description || '',
     content: language === 'vi' ? renamedClass.vi_content || '' : renamedClass.en_content || '',
     image: renamedClass.image || null,

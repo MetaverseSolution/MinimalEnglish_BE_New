@@ -5,6 +5,7 @@ export interface NewsDTO {
   read_time: number;
   image: string;
   title: string | null;
+  content: string | null;
   description: string | null;
   order: number | null;
   status: number;

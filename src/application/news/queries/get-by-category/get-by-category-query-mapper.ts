@@ -10,6 +10,7 @@ export function map(news: NewsEntity, language: string): NewsDTO {
     read_time: news.read_time || 1,
     title: language === 'vi' ? news.vi_title || '' : news.en_title || '',
     description: language === 'vi' ? news.vi_description || '' : news.en_description || '',
+    content: language === 'vi' ? news.vi_content || '' : news.en_content || '',
     order: news.order || null,
     status: news.status,
     created_at: news.created_at ? news.created_at.toISOString() : null,

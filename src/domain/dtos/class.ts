@@ -1,6 +1,6 @@
 export interface ClassDTO {
   id: string;
-  title: string;
+  name: string;
   description: string;
   content: string;
   image: string | null;
