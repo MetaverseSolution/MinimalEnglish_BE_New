@@ -21,7 +21,9 @@ export default async function makeApp(fastify: FastifyInstance) {
 
   // Configure CORS
   await fastify.register(Cors, {
-    origin: false, // TODO: Set this to a valid origin
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   // Auto-load plugins
