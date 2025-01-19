@@ -13,3 +13,6 @@ export * from './feedbacks-repository';
 export * from './news-categories-repository';
 export * from './news-repository';
 export * from './core-system-configs-repository';
+export * from './student-result-repository';
+export * from './activity-class-repository';
+export * from './customer-review-repository';

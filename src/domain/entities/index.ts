@@ -11,3 +11,6 @@ export * from './document-type';
 export * from './lecture';
 export * from './lecture-type';
 export * from './core-system-config';
+export * from './student-result';
+export * from './customer-review';
+export * from './activity-class';

@@ -22,7 +22,10 @@ export type Dependencies = {
   lecturersRepository: Interfaces.LecturersRepository;
   newsCategoriesRepository: Interfaces.NewsCategoriesRepository;
   newsRepository: Interfaces.NewsRepository;
-  coreSystemConfigsRepository: Interfaces.CoreSystemConfigsRepository
+  coreSystemConfigsRepository: Interfaces.CoreSystemConfigsRepository,
+  activityClassRepository: Interfaces.ActivityClassesRepository,
+  customerReviewRepository: Interfaces.CustomerReviewsRepository,
+  studentResultRepository: Interfaces.StudentResultsRepository,
 };
 
 export function makeInfrastructureDependencies(): {
@@ -54,5 +57,8 @@ export function makeInfrastructureDependencies(): {
     newsCategoriesRepository: asFunction(repositories.makeNewsCategoriesRepository).singleton(),
     newsRepository: asFunction(repositories.makeNewsRepository).singleton(),
     coreSystemConfigsRepository: asFunction(repositories.makeCoreSystemConfigRepository).singleton(),
+    activityClassRepository: asFunction(repositories.makeActivityClassesRepository).singleton(),
+    customerReviewRepository: asFunction(repositories.makeCustomerReviewsRepository).singleton(),
+    studentResultRepository: asFunction(repositories.makeStudentResultsRepository).singleton(),
   };
 }

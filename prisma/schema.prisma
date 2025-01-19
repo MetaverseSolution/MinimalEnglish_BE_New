@@ -415,3 +415,42 @@ model users {
   created_at        DateTime? @db.Timestamp(0)
   updated_at        DateTime? @db.Timestamp(0)
 }
+
+model activity_class {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  name       String?   @db.VarChar(500)
+  image_url  String?   @db.VarChar(500)
+  status     Int
+  order      Int?
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+}
+
+model customer_reviews {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  review     String?   @db.VarChar(500)
+  rating     Int?
+  media_url  String    @db.VarChar(500)
+  order      Int?
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  created_by String?   @db.VarChar(10)
+  updated_by String?   @db.VarChar(10)
+}
+
+model student_results {
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  class_name   String?   @db.VarChar(45)
+  name         String?   @db.VarChar(500)
+  description  String?   @db.VarChar(500)
+  result_image String    @db.VarChar(500)
+  order        Int?
+  status       Int
+  created_at   DateTime? @db.Timestamp(0)
+  updated_at   DateTime? @db.Timestamp(0)
+  created_by   String?   @db.VarChar(10)
+  updated_by   String?   @db.VarChar(10)
+}
