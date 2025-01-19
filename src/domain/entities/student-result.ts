@@ -1,6 +1,6 @@
 export class StudentResultEntity {
   public id?: number;
-  public class_name?: string | null;
+  public class_id: number;
   public name?: string | null;
   public description?: string | null;
   public result_image: string;
@@ -13,7 +13,7 @@ export class StudentResultEntity {
 
   constructor(studentResultEntity: {
     id?: number;
-    class_name?: string;
+    class_id: number;
     name?: string;
     description?: string;
     result_image: string;
@@ -25,7 +25,7 @@ export class StudentResultEntity {
     updated_by?: string;
   }) {
     this.id = studentResultEntity.id;
-    this.class_name = studentResultEntity.class_name;
+    this.class_id = studentResultEntity.class_id;
     this.name = studentResultEntity.name;
     this.description = studentResultEntity.description;
     this.result_image = studentResultEntity.result_image;

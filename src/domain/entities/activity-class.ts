@@ -1,5 +1,6 @@
 export class ActivityClassEntity {
   public id?: number;
+  public class_id: number;
   public name?: string | null;
   public image_url?: string | null;
   public status: number;
@@ -11,6 +12,7 @@ export class ActivityClassEntity {
 
   constructor(activityClassEntity: {
     id?: number;
+    class_id: number;
     name?: string;
     image_url?: string;
     status: number;
@@ -21,6 +23,7 @@ export class ActivityClassEntity {
     updated_by?: string;
   }) {
     this.id = activityClassEntity.id;
+    this.class_id = activityClassEntity.class_id;
     this.name = activityClassEntity.name;
     this.image_url = activityClassEntity.image_url;
     this.status = activityClassEntity.status;

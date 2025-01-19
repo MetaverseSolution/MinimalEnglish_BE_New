@@ -2,14 +2,22 @@ import { FastifyRequest } from 'fastify';
 
 import { makeStudentResultUseCases } from '@application/student-result';
 import ResponseBase from '@application/common/response-base';
+import { ListStudentResultQuery } from '@application/student-result/queries/list-student-result';
 
 export default async function studentResultRoutes(fastify: FastifyRouteInstance) {
   const studentResult = makeStudentResultUseCases(fastify.diContainer.cradle);
 
   fastify.route({
-    method: 'GET',
+    method: 'POST',
     url: '/api/student-result/all',
     schema: {
+      body: {
+        type: 'object',
+        properties: {
+          language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+        },
+        required: ['language'],
+      },
       response: {
         200: {
           type: 'object',
@@ -42,11 +50,11 @@ export default async function studentResultRoutes(fastify: FastifyRouteInstance)
       tags: ['student-results'],
     },
     async handler(
-      req: FastifyRequest,
+      req: FastifyRequest<{ Body: ListStudentResultQuery }>,
       res
     ) {
       try {
-        const studentResultList = await studentResult.queries.listStudentResults();
+        const studentResultList = await studentResult.queries.listStudentResults({ language: req.body.language });
 
         const response = ResponseBase.formatBaseResponse(
           200,

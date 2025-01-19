@@ -1,15 +1,23 @@
 import { FastifyRequest } from 'fastify';
 
 import { makeActivityClassUseCases } from '@application/activity-class';
+import { ListActivitClassQuery } from '@application/activity-class/queries/list-activity-class';
 import ResponseBase from '@application/common/response-base';
 
 export default async function activityClassRoutes(fastify: FastifyRouteInstance) {
   const activityClass = makeActivityClassUseCases(fastify.diContainer.cradle);
 
   fastify.route({
-    method: 'GET',
+    method: 'POST',
     url: '/api/activity-class/all',
     schema: {
+      body: {
+        type: 'object',
+        properties: {
+          language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+        },
+        required: ['language'],
+      },
       response: {
         200: {
           type: 'object',
@@ -40,11 +48,11 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
       tags: ['activity-classes'],
     },
     async handler(
-      req: FastifyRequest,
+      req: FastifyRequest<{ Body: ListActivitClassQuery }>,
       res
     ) {
       try {
-        const activtyClassList = await activityClass.queries.listActivityClasses();
+        const activtyClassList = await activityClass.queries.listActivityClasses({ language: req.body.language });
 
         const response = ResponseBase.formatBaseResponse(
           200,

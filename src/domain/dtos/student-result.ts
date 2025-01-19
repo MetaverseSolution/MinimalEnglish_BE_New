@@ -1,6 +1,6 @@
 export interface StudentResultDTO {
   id: number | null;
-  class_name: string | null;
+  class: IClass;
   name: string | null;
   description: string | null;
   result_image: string;
@@ -10,4 +10,11 @@ export interface StudentResultDTO {
   updated_at: string | null;
   created_by: string | null;
   updated_by: string | null;
+}
+
+interface IClass {
+  id: string;
+  name: string | null;
+  description: string | null;
+  image: string | null;
 }

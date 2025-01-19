@@ -418,6 +418,7 @@ model users {
 
 model activity_class {
   id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  class_id   Int?
   name       String?   @db.VarChar(500)
   image_url  String?   @db.VarChar(500)
   status     Int
@@ -443,7 +444,7 @@ model customer_reviews {
 
 model student_results {
   id           Int       @id @default(autoincrement()) @db.UnsignedInt
-  class_name   String?   @db.VarChar(45)
+  class_id     Int?
   name         String?   @db.VarChar(500)
   description  String?   @db.VarChar(500)
   result_image String    @db.VarChar(500)

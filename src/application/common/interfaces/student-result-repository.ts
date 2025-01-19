@@ -1,5 +1,5 @@
 import { StudentResultEntity } from "@domain/entities/student-result";
 
 export interface StudentResultsRepository {
-  list(): Promise<Array<StudentResultEntity>>;
+  list(params: { language: string }): Promise<Array<StudentResultEntity>>;
 }

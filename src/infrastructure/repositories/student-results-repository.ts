@@ -12,6 +12,7 @@ export function makeStudentResultsRepository({ db }: Dependencies): StudentResul
       return studentResults.map(studentResult => ({
         ...studentResult,
         id: Number(studentResult.id),
+        class_id: Number(studentResult.class_id),
       }));
     }
   }
