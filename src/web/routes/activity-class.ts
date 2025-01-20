@@ -29,6 +29,16 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
                 type: 'object',
                 properties: {
                   id: { type: 'integer', nullable: true },
+                  class: {
+                    type: 'object',
+                    properties: {
+                      id: { type: 'string' },
+                      name: { type: 'string', nullable: true },
+                      description: { type: 'string', nullable: true },
+                      image: { type: 'string', nullable: true },
+                    },
+                    nullable: false,
+                  },
                   name: { type: 'string', nullable: true },
                   image_url: { type: 'string', nullable: true },
                   status: { type: 'integer' },

@@ -29,7 +29,16 @@ export default async function studentResultRoutes(fastify: FastifyRouteInstance)
                 type: 'object',
                 properties: {
                   id: { type: 'integer', nullable: true },
-                  class_name: { type: 'string', nullable: true },
+                  class: {
+                    type: 'object',
+                    properties: {
+                      id: { type: 'string' },
+                      name: { type: 'string', nullable: true },
+                      description: { type: 'string', nullable: true },
+                      image: { type: 'string', nullable: true },
+                    },
+                    nullable: false,
+                  },
                   name: { type: 'string', nullable: true },
                   description: { type: 'string', nullable: true },
                   result_image: { type: 'string' },
