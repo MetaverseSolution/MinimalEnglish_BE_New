@@ -16,7 +16,7 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
-          document_type_id: { type: 'string', description: 'ID of pages database' },
+          document_type_id: { type: 'number', description: 'ID of pages database' },
           size: { type: 'number', description: 'Size number of records (e.g., 10.)' },
           page: { type: 'number', description: 'Page number of database (e.g., 1.)' }
         },
