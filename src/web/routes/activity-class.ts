@@ -15,8 +15,10 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+          size: { type: 'number', description: 'Size number of records (e.g., 10.)' },
+          page: { type: 'number', description: 'Page number of database (e.g., 1.)' }
         },
-        required: ['language'],
+        required: ['language', 'size', 'page'],
       },
       response: {
         200: {
@@ -51,6 +53,10 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
                 },
               },
             },
+            total: { type: 'integer', },
+            per_page: { type: 'integer', },
+            current_page: { type: 'integer', },
+            last_page: { type: 'integer', },
             message: { type: 'string', example: 'Activity class fetched successfully' },
           },
         },
@@ -63,22 +69,35 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
       res
     ) {
       try {
-        const activtyClassList = await activityClass.queries.listActivityClasses({ language: req.body.language });
 
-        const response = ResponseBase.formatBaseResponse(
+        const { data, total, per_page, current_page, last_page } = await activityClass.queries.listActivityClasses({
+          language: req.body.language,
+          size: req.body.size,
+          page: req.body.page,
+        });
+
+        const response = ResponseBase.formatPaginationResponse(
           200,
-          activtyClassList,
-          'Activity class fetched successfully',
+          data,
+          total ?? 0,
+          per_page ?? 0,
+          current_page ?? 0,
+          last_page ?? 0,
+          'Activity classes fetched successfully',
         );
 
         res.status(200).send(response);
       } catch (error) {
         fastify.log.error(error);
 
-        const errorResponse = ResponseBase.formatBaseResponse(
+        const errorResponse = ResponseBase.formatPaginationResponse(
           400,
           null,
-          'Failed to fetch activity class',
+          0,
+          0,
+          0,
+          0,
+          'Failed to fetch activty classes',
         );
 
         res.status(400).send(errorResponse);

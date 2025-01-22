@@ -1,13 +1,25 @@
 import { ActivityClassDTO } from "@domain/dtos/activity-class";
+
 import { map } from "./list-activity-class-query-mapper";
+import { validate } from "./list-activity-class-query-validator";
 
 export type ListActivitClassQuery = Readonly<{
   language: string;
+  size?: number;
+  page?: number
 }>;
 
 export function makeListActivityClassQuery({ activityClassRepository, db }: Pick<Dependencies, 'activityClassRepository' | 'db'>) {
-  return async function listActivityClassQuery({ language }: ListActivitClassQuery) {
-    const activityClasses = await activityClassRepository.list({ language });
+  return async function listActivityClassQuery(query: ListActivitClassQuery) {
+    await validate(query);
+
+    const { language, size, page } = query;
+
+    const { data: activityClasses, total } = await activityClassRepository.list({ language, size, page });
+
+    const per_page = size;
+    const current_page = page;
+    const last_page = total && per_page ? Math.ceil(total / per_page) : 1;
 
     const enrichedActivityClasses = await Promise.all(activityClasses.map(async (activityClass) => {
       const classInfo = await db.renamedclass.findUnique({
@@ -47,6 +59,12 @@ export function makeListActivityClassQuery({ activityClassRepository, db }: Pick
       return activityClassDTO;
     }));
 
-    return enrichedActivityClasses.map((activityClass) => map(activityClass));
+    return {
+      data: enrichedActivityClasses.map((activityClass) => map(activityClass)),
+      total,
+      per_page,
+      current_page,
+      last_page,
+    }
   };
 }
