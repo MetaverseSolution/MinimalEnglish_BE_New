@@ -191,7 +191,7 @@ export default async function classRoutes(fastify: FastifyRouteInstance) {
                 type: 'object',
                 properties: {
                   id: { type: 'integer' },
-                  title: { type: 'string' },
+                  name: { type: 'string' },
                   order: { type: 'integer' },
                 },
               },
