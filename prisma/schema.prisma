@@ -420,6 +420,7 @@ model activity_class {
   id         Int       @id @default(autoincrement()) @db.UnsignedInt
   class_id   Int?
   name       String?   @db.VarChar(500)
+  video_url  String?   @db.VarChar(5000)
   image_url  String?   @db.VarChar(500)
   status     Int
   order      Int?
