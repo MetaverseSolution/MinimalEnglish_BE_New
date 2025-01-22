@@ -2,6 +2,7 @@ export class ActivityClassEntity {
   public id?: number;
   public class_id: number;
   public name?: string | null;
+  public video_url?: string | null;
   public image_url?: string | null;
   public status: number;
   public order?: number | null;
@@ -14,6 +15,7 @@ export class ActivityClassEntity {
     id?: number;
     class_id: number;
     name?: string;
+    video_url?: string;
     image_url?: string;
     status: number;
     order?: number;
@@ -25,6 +27,7 @@ export class ActivityClassEntity {
     this.id = activityClassEntity.id;
     this.class_id = activityClassEntity.class_id;
     this.name = activityClassEntity.name;
+    this.video_url = activityClassEntity.video_url;
     this.image_url = activityClassEntity.image_url;
     this.status = activityClassEntity.status;
     this.order = activityClassEntity.order;

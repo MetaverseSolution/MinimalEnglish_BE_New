@@ -40,6 +40,7 @@ export default async function activityClassRoutes(fastify: FastifyRouteInstance)
                     nullable: false,
                   },
                   name: { type: 'string', nullable: true },
+                  video_url: { type: 'string', nullable: true },
                   image_url: { type: 'string', nullable: true },
                   status: { type: 'integer' },
                   order: { type: 'integer', nullable: true },

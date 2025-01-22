@@ -10,6 +10,7 @@ export function map(activityClass: ActivityClassDTO): ActivityClassDTO {
       image: activityClass?.class?.image ?? null,
     },
     name: activityClass?.name ?? null,
+    video_url: activityClass.video_url ?? null,
     image_url: activityClass.image_url ?? null,
     status: activityClass.status,
     order: activityClass.order ?? null,

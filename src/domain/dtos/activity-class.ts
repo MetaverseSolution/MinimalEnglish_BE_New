@@ -2,6 +2,7 @@ export interface ActivityClassDTO {
   id: number | null;
   class: IClass;
   name: string | null;
+  video_url: string | null;
   image_url: string | null;
   status: number;
   order: number | null;

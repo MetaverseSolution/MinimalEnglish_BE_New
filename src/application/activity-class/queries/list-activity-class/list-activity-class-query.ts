@@ -34,6 +34,7 @@ export function makeListActivityClassQuery({ activityClassRepository, db }: Pick
           image: enrichedClass.class.image ?? null,
         },
         name: enrichedClass.name ?? null,
+        video_url: enrichedClass.video_url ?? null,
         image_url: enrichedClass.image_url ?? null,
         status: enrichedClass.status,
         order: enrichedClass.order ?? null,
