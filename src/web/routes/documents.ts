@@ -101,7 +101,7 @@ export default async function documentRoutes(fastify: FastifyRouteInstance) {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
-          id: { type: 'string', description: 'ID of records' }
+          id: { type: 'number', description: 'ID of records' }
         },
         required: ['language', 'id'],
       },
