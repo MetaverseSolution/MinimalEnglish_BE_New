@@ -14,3 +14,4 @@ export * from './core-system-config-repository';
 export * from './activity-classes-repository';
 export * from './customer-reviews-repository';
 export * from './student-results-repository';
+export * from './registration-repository';

@@ -26,6 +26,7 @@ export type Dependencies = {
   activityClassRepository: Interfaces.ActivityClassesRepository,
   customerReviewRepository: Interfaces.CustomerReviewsRepository,
   studentResultRepository: Interfaces.StudentResultsRepository,
+  registrationRepository: Interfaces.RegistrationsRepository
 };
 
 export function makeInfrastructureDependencies(): {
@@ -60,5 +61,6 @@ export function makeInfrastructureDependencies(): {
     activityClassRepository: asFunction(repositories.makeActivityClassesRepository).singleton(),
     customerReviewRepository: asFunction(repositories.makeCustomerReviewsRepository).singleton(),
     studentResultRepository: asFunction(repositories.makeStudentResultsRepository).singleton(),
+    registrationRepository: asFunction(repositories.makeRegistrationsRepository).singleton(),
   };
 }
