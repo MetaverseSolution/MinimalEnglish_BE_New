@@ -447,7 +447,9 @@ model student_results {
   id           Int       @id @default(autoincrement()) @db.UnsignedInt
   class_id     Int?
   name         String?   @db.VarChar(500)
-  description  String?   @db.VarChar(500)
+  score        String?   @db.VarChar(500)
+  vi_content   String?   @db.VarChar(500)
+  en_content   String?   @db.VarChar(500)
   result_image String    @db.VarChar(500)
   order        Int?
   status       Int

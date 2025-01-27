@@ -2,7 +2,9 @@ export class StudentResultEntity {
   public id?: number;
   public class_id: number;
   public name?: string | null;
-  public description?: string | null;
+  public vi_content?: string | null;
+  public en_content?: string | null;
+  public score?: string | null;
   public result_image: string;
   public order?: number | null;
   public status: number;
@@ -15,7 +17,9 @@ export class StudentResultEntity {
     id?: number;
     class_id: number;
     name?: string;
-    description?: string;
+    vi_content?: string;
+    en_content?: string;
+    score?: string;
     result_image: string;
     order?: number;
     status: number;
@@ -27,7 +31,9 @@ export class StudentResultEntity {
     this.id = studentResultEntity.id;
     this.class_id = studentResultEntity.class_id;
     this.name = studentResultEntity.name;
-    this.description = studentResultEntity.description;
+    this.score = studentResultEntity.score;
+    this.vi_content = studentResultEntity.vi_content;
+    this.en_content = studentResultEntity.en_content;
     this.result_image = studentResultEntity.result_image;
     this.order = studentResultEntity.order;
     this.status = studentResultEntity.status;

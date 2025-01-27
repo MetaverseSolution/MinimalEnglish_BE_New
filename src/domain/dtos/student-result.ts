@@ -2,7 +2,8 @@ export interface StudentResultDTO {
   id: number | null;
   class: IClass;
   name: string | null;
-  description: string | null;
+  score: string | null;
+  content: string | null;
   result_image: string;
   order: number | null;
   status: number;
