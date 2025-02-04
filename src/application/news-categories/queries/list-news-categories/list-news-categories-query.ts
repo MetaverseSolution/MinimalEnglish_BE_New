@@ -5,14 +5,14 @@ export type ListNewsCategoriesQuery = Readonly<{
   language: string;
 }>;
 
-export function makeListNewsCategoriesQuery({ documentTypesRepository }: Pick<Dependencies, 'documentTypesRepository'>) {
+export function makeListNewsCategoriesQuery({ newsCategoriesRepository }: Pick<Dependencies, 'newsCategoriesRepository'>) {
   return async function listNewsCategoriesQuery(query: ListNewsCategoriesQuery) {
     await validate(query);
 
     const { language } = query;
 
-    const newsCategories = await documentTypesRepository.list({ language });
+    const newsCategories = await newsCategoriesRepository.list({ language });
 
-    return newsCategories.map((newsCategory) => map(newsCategory, language));
+    return newsCategories && newsCategories.map((newsCategory) => map(newsCategory, language));
   };
 }
