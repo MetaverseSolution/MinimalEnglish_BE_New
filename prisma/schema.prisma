@@ -433,7 +433,7 @@ model activity_class {
 model customer_reviews {
   id         Int       @id @default(autoincrement()) @db.UnsignedInt
   review     String?   @db.VarChar(500)
-  rating     Int?
+  score      String?   @db.VarChar(25)
   media_url  String    @db.VarChar(500)
   order      Int?
   status     Int

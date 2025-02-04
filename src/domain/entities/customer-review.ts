@@ -1,7 +1,7 @@
 export class CustomerReviewEntity {
   public id?: number;
   public review?: string | null;
-  public rating?: number | null;
+  public score?: number | null;
   public media_url: string;
   public order?: number | null;
   public status: number;
@@ -13,7 +13,7 @@ export class CustomerReviewEntity {
   constructor(customerReviewEntity: {
     id?: number;
     review?: string;
-    rating?: number;
+    score?: number;
     media_url: string;
     order?: number;
     status: number;
@@ -24,7 +24,7 @@ export class CustomerReviewEntity {
   }) {
     this.id = customerReviewEntity.id;
     this.review = customerReviewEntity.review;
-    this.rating = customerReviewEntity.rating;
+    this.score = customerReviewEntity.score;
     this.media_url = customerReviewEntity.media_url;
     this.order = customerReviewEntity.order;
     this.status = customerReviewEntity.status;

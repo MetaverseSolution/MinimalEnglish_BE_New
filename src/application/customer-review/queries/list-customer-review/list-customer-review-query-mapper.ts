@@ -5,7 +5,7 @@ export function map(customerReview: CustomerReviewEntity): CustomerReviewDTO {
   return {
     id: customerReview.id ?? null,
     review: customerReview.review ?? null,
-    rating: customerReview.rating ?? null,
+    score: customerReview.score ?? null,
     media_url: customerReview.media_url,
     order: customerReview.order ?? null,
     status: customerReview.status,
