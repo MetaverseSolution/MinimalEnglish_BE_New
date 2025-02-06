@@ -12,7 +12,7 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
           news_category_id,
         },
         orderBy: {
-          order: 'asc',
+          id: 'desc',
         },
         skip: (page - 1) * size,
         take: size,
@@ -40,10 +40,10 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
       const news = await db.news.findMany({
         where: {
           status: 1,
-          news_category_id
+          news_category_id,
         },
         orderBy: {
-          order: 'asc',
+          id: 'desc',
         },
         skip: (page - 1) * size,
         take: size,

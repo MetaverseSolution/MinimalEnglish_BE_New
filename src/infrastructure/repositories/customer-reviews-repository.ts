@@ -6,7 +6,7 @@ export function makeCustomerReviewsRepository({ db }: Dependencies): CustomerRev
       const customerReviews = await db.customer_reviews.findMany({
         where: { status: 1 },
         orderBy: {
-          order: 'asc',
+          id: 'desc',
         },
       });
       return customerReviews.map(customerReview => ({

@@ -6,7 +6,7 @@ export function makeNewsCategoriesRepository({ db }: Dependencies): NewsCategori
       const newsCategories = await db.news_category.findMany({
         where: { status: 1 },
         orderBy: {
-          order: 'asc',
+          id: 'desc',
         },
       });
       return newsCategories.map((newsCategory) => ({

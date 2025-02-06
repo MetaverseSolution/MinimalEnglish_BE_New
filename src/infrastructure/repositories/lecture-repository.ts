@@ -11,7 +11,7 @@ export function makeLecturesRepository({ db }: Dependencies): LecturesRepository
           lecture_type_id
         },
         orderBy: {
-          order: 'asc',
+          id: 'desc',
         },
         skip: (page - 1) * size,
         take: size,
