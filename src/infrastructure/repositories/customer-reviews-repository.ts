@@ -11,7 +11,6 @@ export function makeCustomerReviewsRepository({ db }: Dependencies): CustomerRev
       });
       return customerReviews.map(customerReview => ({
         ...customerReview,
-        score: Number(customerReview.score),
         id: Number(customerReview.id),
       }));
     }

@@ -1,7 +1,7 @@
 export interface CustomerReviewDTO {
   id: number | null;
   review: string | null;
-  score: number | null;
+  score: number | string | null;
   media_url: string;
   order: number | null;
   status: number;

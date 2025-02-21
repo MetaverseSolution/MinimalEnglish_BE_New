@@ -1,7 +1,7 @@
 export class CustomerReviewEntity {
   public id?: number;
   public review?: string | null;
-  public score?: number | null;
+  public score?: number | string | null;
   public media_url: string;
   public order?: number | null;
   public status: number;

@@ -22,7 +22,7 @@ export default async function customerReviewRoutes(fastify: FastifyRouteInstance
                 properties: {
                   id: { type: 'integer', nullable: true },
                   review: { type: 'string', nullable: true },
-                  score: { type: 'integer', nullable: true },
+                  score: { type: 'string', nullable: true },
                   media_url: { type: 'string' },
                   order: { type: 'integer', nullable: true },
                   status: { type: 'integer' },
