@@ -2,6 +2,7 @@ export interface LectureDTO {
   id: string;
   lecture_type_id: number;
   associcate_link: string | null;
+  link_file: string | null;
   viewer: number;
   image: string;
   title: string | null;

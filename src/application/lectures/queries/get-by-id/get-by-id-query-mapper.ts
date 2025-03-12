@@ -6,6 +6,7 @@ export function map(lecture: LectureEntity, language: string): LectureDTO {
     id: lecture.id?.toString() || '',
     lecture_type_id: lecture.lecture_type_id,
     associcate_link: lecture.associcate_link || '',
+    link_file: lecture.link_file || '',
     viewer: lecture.viewer,
     image: lecture.image || '',
     title: language === 'vi' ? lecture.vi_title || '' : lecture.en_title || '',

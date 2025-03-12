@@ -8,6 +8,7 @@ export class LectureEntity {
   public vi_content: string;
   public en_content: string;
   public associcate_link?: string | null;
+  public link_file?: string | null;
   public viewer: number;
   public image?: string | null;
   public order?: number | null;
@@ -27,6 +28,7 @@ export class LectureEntity {
     vi_content: string;
     en_content: string;
     associcate_link?: string;
+    link_file?: string;
     viewer: number;
     image?: string;
     order?: number;
@@ -45,6 +47,7 @@ export class LectureEntity {
     this.vi_content = lectureEntity.vi_content;
     this.en_content = lectureEntity.en_content;
     this.associcate_link = lectureEntity.associcate_link;
+    this.link_file = lectureEntity.link_file;
     this.viewer = lectureEntity.viewer;
     this.image = lectureEntity.image;
     this.order = lectureEntity.order;

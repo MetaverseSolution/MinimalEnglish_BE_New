@@ -247,6 +247,7 @@ model lecture {
   vi_content      String       @db.Text
   en_content      String       @db.Text
   associcate_link String?      @db.VarChar(1000)
+  link_file       String?      @db.VarChar(1000)
   viewer          Int          @default(0)
   image           String?      @db.VarChar(256)
   order           Int?
