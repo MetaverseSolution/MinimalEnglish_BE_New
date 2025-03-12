@@ -36,6 +36,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                 properties: {
                   id: { type: 'integer' },
                   news_category_id: { type: 'integer' },
+                  news_category_name: { type: 'string' },
                   slug: { type: 'string' },
                   read_time: { type: 'integer' },
                   title: { type: 'string' },
@@ -130,6 +131,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
                 properties: {
                   id: { type: 'integer' },
                   news_category_id: { type: 'integer' },
+                  news_category_name: { type: 'string' },
                   slug: { type: 'string' },
                   read_time: { type: 'integer' },
                   title: { type: 'string' },
@@ -219,6 +221,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
               properties: {
                 id: { type: 'integer' },
                 news_category_id: { type: 'integer' },
+                news_category_name: { type: 'string' },
                 slug: { type: 'string' },
                 read_time: { type: 'integer' },
                 title: { type: 'string' },

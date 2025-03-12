@@ -1,6 +1,7 @@
 export class NewsEntity {
   public id?: number;
   public news_category_id: number;
+  public news_category_name: string;
   public vi_title: string;
   public en_title: string;
   public vi_description?: string | null;
@@ -20,6 +21,7 @@ export class NewsEntity {
   constructor(newsEntity: {
     id?: number;
     news_category_id: number;
+    news_category_name: string
     vi_title: string;
     en_title: string;
     vi_description?: string;
@@ -38,6 +40,7 @@ export class NewsEntity {
   }) {
     this.id = newsEntity.id;
     this.news_category_id = newsEntity.news_category_id;
+    this.news_category_name = newsEntity.news_category_name;
     this.vi_title = newsEntity.vi_title;
     this.en_title = newsEntity.en_title;
     this.vi_description = newsEntity.vi_description;

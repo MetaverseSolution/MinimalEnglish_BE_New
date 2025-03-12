@@ -5,6 +5,7 @@ export function map(news: NewsEntity, language: string): NewsDTO {
   return {
     id: news.id?.toString() || '',
     news_category_id: news.news_category_id,
+    news_category_name: news.news_category_name,
     slug: news.slug,
     image: news.image || '',
     read_time: news.read_time || 1,

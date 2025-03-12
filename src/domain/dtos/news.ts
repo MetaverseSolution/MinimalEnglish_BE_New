@@ -1,6 +1,7 @@
 export interface NewsDTO {
   id: string;
   news_category_id: number;
+  news_category_name: string;
   slug: string;
   read_time: number;
   image: string;
