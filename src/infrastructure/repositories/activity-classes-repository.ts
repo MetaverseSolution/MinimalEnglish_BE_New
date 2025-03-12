@@ -7,7 +7,7 @@ export function makeActivityClassesRepository({ db }: Dependencies): ActivityCla
 
       const activityClasses = await db.activity_class.findMany({
         where: { status: 1 },
-        orderBy: { order: 'asc' },
+        orderBy: { created_at: 'desc' },
         skip: (page - 1) * size,
         take: size,
       });
