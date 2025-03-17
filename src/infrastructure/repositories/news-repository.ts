@@ -77,7 +77,67 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
         news_category_id: Number(news.news_category_id),
         news_category_name: category ? language === "vi" ? category.vi_name : category.en_name : "",
       };
-    }
+    },
 
+    async search(params: { language: string; name: string; size?: number; page?: number }) {
+      const { language, name, size = 10, page = 1 } = params;
+
+      const titleField = language === "vi" ? "vi_title" : "en_title";
+      const contentField = language === "vi" ? "vi_content" : "en_content";
+
+      const searchCondition = {
+        OR: [
+          { [titleField]: { contains: name } },
+          { [contentField]: { contains: name } }
+        ]
+      };
+
+      const news = await db.news.findMany({
+        where: {
+          AND: [
+            { status: 1 },
+            searchCondition
+          ]
+        },
+        orderBy: { id: 'desc' },
+        skip: (page - 1) * size,
+        take: size,
+      });
+
+      const total = await db.news.count({
+        where: {
+          AND: [
+            { status: 1 },
+            searchCondition
+          ]
+        }
+      });
+
+      const data = await Promise.all(news.map(async (newsItem) => {
+        const category = await db.news_category.findFirst({
+          where: { id: newsItem.news_category_id },
+        });
+
+        return {
+          ...newsItem,
+          id: Number(newsItem.id),
+          news_category_id: Number(newsItem.news_category_id),
+          news_category_name: category ? language === "vi" ? category.vi_name : category.en_name : "",
+          title: language === "vi" ? newsItem.vi_title : newsItem.en_title,
+          content: language === "vi" ? newsItem.vi_content : newsItem.en_content,
+          description: language === "vi" ? newsItem.vi_description : newsItem.en_description,
+        };
+      }));
+
+      const lastPage = Math.ceil(total / size);
+
+      return {
+        data,
+        total,
+        per_page: size,
+        current_page: page,
+        last_page: lastPage
+      };
+    }
   }
 }
