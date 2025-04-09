@@ -79,8 +79,8 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
       };
     },
 
-    async search(params: { language: string; name: string; size?: number; page?: number }) {
-      const { language, name, size = 10, page = 1 } = params;
+    async search(params: { categoryId?: number, language: string; name: string; size?: number; page?: number }) {
+      const { language, name, size = 10, page = 1, categoryId } = params;
 
       const titleField = language === "vi" ? "vi_title" : "en_title";
       const contentField = language === "vi" ? "vi_content" : "en_content";
@@ -92,12 +92,18 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
         ]
       };
 
+      const whereConditions: any[] = [
+        { status: 1 },
+        searchCondition
+      ];
+
+      if (categoryId) {
+        whereConditions.push({ news_category_id: categoryId });
+      }
+
       const news = await db.news.findMany({
         where: {
-          AND: [
-            { status: 1 },
-            searchCondition
-          ]
+          AND: whereConditions
         },
         orderBy: { id: 'desc' },
         skip: (page - 1) * size,
@@ -106,10 +112,7 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
 
       const total = await db.news.count({
         where: {
-          AND: [
-            { status: 1 },
-            searchCondition
-          ]
+          AND: whereConditions
         }
       });
 

@@ -283,6 +283,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
         type: 'object',
         properties: {
           language: { type: 'string', description: 'Language code (e.g., vi, en, etc.)' },
+          categoryId: { type: 'number', description: 'Category id (e.g., 1,2, 3, etc.)' },
           name: { type: 'string', description: 'Search keyword for news title or content' },
           size: { type: 'number', description: 'Size number of records (e.g., 10)' },
           page: { type: 'number', description: 'Page number (e.g., 1)' }
@@ -335,6 +336,7 @@ export default async function newsRoutes(fastify: FastifyRouteInstance) {
     ) {
       try {
         const { data, total, per_page, current_page, last_page } = await news.queries.search({
+          categoryId: req.body.categoryId,
           language: req.body.language,
           name: req.body.name,
           size: req.body.size,

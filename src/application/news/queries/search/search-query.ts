@@ -2,6 +2,7 @@ import { map } from "./search-query-mapper";
 import { validate } from "./search-query-validator";
 
 export type SearchNewsQuery = Readonly<{
+  categoryId?: number;
   language: string;
   name: string;
   size?: number;
