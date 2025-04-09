@@ -13,9 +13,9 @@ export function makeSearchQuery({ newsRepository }: Pick<Dependencies, 'newsRepo
   return async function getByCategoryQuery(query: SearchNewsQuery) {
     await validate(query);
 
-    const { name, language, size, page } = query;
+    const { categoryId, name, language, size, page } = query;
 
-    const { data, total } = await newsRepository.search({ name, language, size, page });
+    const { data, total } = await newsRepository.search({ categoryId, name, language, size, page });
 
     const per_page = size;
     const current_page = page;
