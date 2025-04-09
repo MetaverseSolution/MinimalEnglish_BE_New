@@ -97,8 +97,8 @@ export function makeNewsRepository({ db }: Dependencies): NewsRepository {
         searchCondition
       ];
 
-      if (categoryId) {
-        whereConditions.push({ news_category_id: categoryId });
+      if (categoryId !== undefined) {
+        whereConditions.push({ news_category_id: BigInt(categoryId) });
       }
 
       const news = await db.news.findMany({
